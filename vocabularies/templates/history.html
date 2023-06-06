@@ -1,0 +1,38 @@
+{% extends "nav.html" %}
+{% block title %}历史记录{% endblock %}
+{% block content %}
+    {% load static %}
+    <link href="{% static 'css/list.css' %}" rel="stylesheet">
+    <div class="main-container">
+            <table class="item-list search-list">
+            <thead>
+                <tr>
+                    <th class="search-record">搜索记录</th>
+                    <th class="translation-status">翻译情况</th>
+                    <th class="search-date">搜索日期</th>
+                    <th class="search-operation">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for search in search_list %}
+                    <tr id="search-id-{{ search.id }}">
+                    <td class="search-record">{{ search.word }}</td>
+                    <td class="translation-status">{{ search.translation }}</td>
+                    <td class="search-date">{{ search.save_day }}</td>
+                    <td class="search-operation">
+                          <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="button_clicked" value="{{ search.id }}" class="btn btn-primary">删除记录</button>
+                          </form>
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+     <form method="post">
+          {% csrf_token %}
+          <button type="submit" name="delete_all_history" value="" class="btn btn-primary">删除所有记录</button>
+    </form>
+    <button type="button" name="返回主页" onclick='window.location.href=("{% url 'vocabulary' kind='User'%}")'>返回主页</button>
+{% endblock %}

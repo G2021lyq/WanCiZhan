@@ -1,0 +1,36 @@
+{% extends "nav.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/tra.css' %}">
+{% block title %} Translate {% endblock %}
+{% block content %}
+    {% load static %}
+    <h1>Translate</h1>
+    <div class="中文">
+        <form method="post">
+            {% csrf_token %}
+            {{ chinese_to_english_form.as_p }}
+            <button type="submit" name="chinese_to_english">中文转英文</button>
+        </form>
+    </div>
+    <div class="英文">
+        <form method="post">
+            {% csrf_token %}
+            {{ english_to_chinese_form.as_p }}
+            <button type="submit" name="english_to_chinese">英文转中文</button>
+        </form>
+    </div>
+    <div class="翻译的意思">
+        {% if chinese_meaning %}
+            <p>中文意思：{{ chinese_meaning }}</p>
+        {% endif %}
+        {% if english_meaning %}
+            <p>英文意思：{{ english_meaning }}</p>
+        {% endif %}
+    </div>
+    <div class="收藏">
+        <button type="button" name="收藏" >收藏</button>
+    </div>
+    <button type="button" name="历史搜索记录" onclick='window.location.href=("{% url 'history' %}")'>历史搜索记录</button>
+    <button type="button" name="复习收藏单词" onclick='window.location.href=("{% url 'collections' %}")'>复习收藏单词</button>
+
+{% endblock %}

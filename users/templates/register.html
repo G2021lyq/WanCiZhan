@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link href="{% static 'css/register.css' %}?v={{ random_string }}" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<div class="main-container">
+    <div class="register-container">
+        <div class="register-title">注册</div>
+
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <p><input type="submit" value="注册" class="submit-button"/></p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

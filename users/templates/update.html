@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link href="{% static 'css/register.css' %}?v={{ random_string }}" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Register
+    </title>
+</head>
+<body>
+
+    <div class="register-container">
+        <div class="register-title">修改个人信息</div>
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <p><input type="submit" value="修改" class="submit-button"/></p>
+        </form>
+        <div class="return-button"><a href="{% url 'vocabulary' kind %}">返回上一页</a></div>
+
+    </div>
+</body>

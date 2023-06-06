@@ -1,0 +1,39 @@
+{% extends "nav.html" %}
+{% block title %}收藏记录{% endblock %}
+{% block content %}
+    {% load static %}
+    <link href="{% static 'css/list.css' %}" rel="stylesheet">
+    <div class="main-container">
+            <table class="item-list collection-list">
+            <thead>
+                <tr>
+                    <th class="collection-word">收藏单词</th>
+                    <th class="translation-status">翻译情况</th>
+                    <th class="collection-date">上次学习时间</th>
+                    <th class="collection-operation">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for collection in collection_list %}
+                    <tr id="collection-id-{{ collection.id }}">
+                    <td class="collection-word">{{ collection.word }}</td>
+                    <td class="translation-status">{{ collection.translation }}</td>
+                    <td class="collection-date">{{ collection.last_day }}</td>
+                    <td class="collection-operation">
+                          <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="button_clicked" value="{{ collection.id }}" class="btn btn-danger">取消收藏</button>
+                          </form>
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+    <button type="button" name="返回主页" onclick='window.location.href=("{% url 'vocabulary' kind='User'%}")'>返回主页</button>
+    <button type="button" name="单词测试" onclick='window.location.href=("{% url 'vocabularyTest' kind='User'%}")'>单词测试</button>
+    <br><br>
+    <button type="button" name="复习收藏单词" onclick='window.location.href=("{% url 'show_score' kind='User' %}")'>查看学习情况</button>
+{% endblock %}

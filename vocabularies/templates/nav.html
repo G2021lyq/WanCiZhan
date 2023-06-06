@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <link href="{% static 'css/nav.css' %}" rel="stylesheet">
+    <link href="{% static 'css/vocabulary_main.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="nav">
+    <div class="nav-title">
+        <a href="{% url 'vocabulary' kind=info.kind %}">
+        <p class="main-title">英语单词学习系统</p>
+        <p class="sub-title">
+            {% if info.kind == "Admin" %}
+                管理员
+            {% elif info.kind == "User" %}
+                用户
+            {% endif %}</p>
+        </a>
+    </div>
+
+    <div class="log-out">
+        <a href="{% url "logout" %}">退出</a>
+    </div>
+    <div class="name-logo">
+        <div class="user-name">
+            <a href="{% url 'update' info.kind %}">
+                {{ info.name.0 }}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="main-content">
+    {% block content %}{% endblock %}
+</div>
+
+
+</body>
+</html>

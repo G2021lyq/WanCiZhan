@@ -1,0 +1,18 @@
+{% extends "nav.html" %}
+{% block title %} Word Test {% endblock %}
+{% block content %}
+    <form method="post" action="{% url 'check' %}">
+        {% csrf_token %}
+        {% for question in questions %}
+            <p>{{ question.question_text }}</p>
+            {% if question.choices %}
+                {% for choice in question.choice_list %}
+                    <input type="radio" name="{{ question.id }}" value="{{ choice }}"> {{ choice }}<br>
+                {% endfor %}
+            {% else %}
+                <input type="text" name="{{ question.id }}"><br>
+            {% endif %}
+        {% endfor %}
+        <input type="submit" value="确认提交">
+    </form>
+{% endblock %}

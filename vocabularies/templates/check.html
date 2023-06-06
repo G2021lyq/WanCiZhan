@@ -1,0 +1,6 @@
+{% extends "nav.html" %}
+{% block title %} Word Test {% endblock %}
+{% block content %}
+    <p>您的得分是：{{ score }}</p>
+    <button type="button" name="复习收藏单词" onclick='window.location.href=("{% url 'collections' kind='User' %}")'>返回</button>
+{% endblock %}

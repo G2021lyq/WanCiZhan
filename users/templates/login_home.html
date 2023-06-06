@@ -1,0 +1,9 @@
+{% extends "background.html" %}
+{% block login_container %}
+<div class="login-kind user-login-button">
+    <a href="{% url 'login' 'User' %}">用户登录</a>
+</div>
+<div class="login-kind admin-login-button">
+    <a href="{% url 'login' 'Admin' %}">管理员登录</a>
+</div>
+{% endblock %}

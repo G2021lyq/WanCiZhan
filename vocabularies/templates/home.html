@@ -1,0 +1,42 @@
+{% extends "nav.html" %}
+{% load static %}
+<link href="{% static 'css/tra.css' %}" rel="stylesheet">
+{% block title %} Translate {% endblock %}
+{% block content %}
+    <h1>Translate</h1>
+    <div class="main-container">
+    <div class="中文">
+        <form method="post">
+            {% csrf_token %}
+            {{ chinese_to_english_form.as_p }}
+            <button class="button" type="submit" name="chinese_to_english">中文转英文</button>
+        </form>
+    </div>
+    <div class="英文">
+        <form method="post">
+            {% csrf_token %}
+            {{ english_to_chinese_form.as_p }}
+            <button class="button" type="submit" name="english_to_chinese">英文转中文</button>
+        </form>
+    </div>
+    <div class="翻译的意思">
+        {% if chinese_meaning %}
+            <p>中文意思：{{ chinese_meaning }}</p>
+        {% endif %}
+        {% if english_meaning %}
+            <p>英文意思：{{ english_meaning }}</p>
+        {% endif %}
+    </div>
+    <div class="收藏">
+    <a class="button" href="{% url 'vocabulary' kind='User' %}" onclick="event.preventDefault(); document.getElementById('collect-form').submit();">收藏</a>
+    <form id="collect-form" method="post" style="display: none;">
+    {% csrf_token %}
+    <input type="hidden" name="word" value="{{ word }}">
+    </form>
+    </div>
+    <div class="两个按钮">
+        <button class="button" type="button" name="历史搜索记录" onclick='window.location.href=("{% url 'history' kind='User'%}")'>历史搜索记录</button>
+        <button class="button" type="button" name="复习收藏单词" onclick='window.location.href=("{% url 'collections' kind='User'%}")'>复习收藏单词</button>
+    </div>
+    </div>
+{% endblock %}
